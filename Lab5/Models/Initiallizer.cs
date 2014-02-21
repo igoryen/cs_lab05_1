@@ -3,37 +3,25 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Data.Entity;
-using Lab5.Controllers;
 
-namespace Lab5.Models {
-
+namespace INT422TestOne.Models {
   public class Initiallizer : DropCreateDatabaseAlways<DataContext> {
-
     protected override void Seed(DataContext dc) {
-
       Genre g = new Genre("Fantasy");
       dc.Genres.Add(g);
-
       Genre g1 = new Genre("Drama");
       dc.Genres.Add(g1);
-
       Genre g2 = new Genre("Comedy");
       dc.Genres.Add(g2);
-
       Genre g3 = new Genre("Adventure");
       dc.Genres.Add(g3);
-
       Genre g4 = new Genre("War");
       dc.Genres.Add(g4);
-
       Genre g5 = new Genre("Crime");
       dc.Genres.Add(g5);
 
-
       Director d = new Director("Goldwyn");
       dc.Directors.Add(d);
-
-
       Movie mo = new Movie();
       mo.Title = "Darkfall Resurection";
       mo.TicketPrice = 15.99m;
