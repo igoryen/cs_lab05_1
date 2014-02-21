@@ -1,31 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
-
-namespace Lab5.ViewModels {
-
-  public class GenresForList {
-    [Key]
-    public int Id { get; set; }
-
-    [Required]
-    //[RegularExpression("^[0][0-9]{8}$", ErrorMessage = "0 followed by 8 digits")]
-    public string Name { get; set; }
-  }
+using System.ComponentModel.DataAnnotations;
 
 
-  public class GenreFull : GenresForList {
-
-    public GenreFull() {
-      this.Movies = new List<MoviesForList>();
+namespace INT422TestOne.ViewModels
+{
+    public class GenreBase
+    {
+        [Key]
+        public int GenreId { get; set; }
+        [Required]
+        public string Name { get; set; }
     }
 
-    public List<MoviesForList> Movies { get; set; }
-  }
+    public class GenreFull: GenreBase
+    {
+        public List<MovieFull> Movies { get; set; }
 
+        public GenreFull()
+        {
+            this.Name = string.Empty;
+            this.Movies = new List<MovieFull>();
+        }
 
+    }
 }
-
-
