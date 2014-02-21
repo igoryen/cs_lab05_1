@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Lab5.Models {
+namespace INT422TestOne.Models {
   public class ExternalLoginConfirmationViewModel {
     [Required]
     [Display(Name = "User name")]
@@ -8,7 +8,6 @@ namespace Lab5.Models {
   }
 
   public class ManageUserViewModel {
-
     [Required]
     [DataType(DataType.Password)]
     [Display(Name = "Current password")]
@@ -27,7 +26,6 @@ namespace Lab5.Models {
   }
 
   public class LoginViewModel {
-
     [Required]
     [Display(Name = "User name")]
     public string UserName { get; set; }
@@ -42,7 +40,6 @@ namespace Lab5.Models {
   }
 
   public class RegisterViewModel {
-
     [Required]
     [Display(Name = "User name")]
     public string UserName { get; set; }
