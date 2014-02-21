@@ -2,78 +2,40 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
-namespace Lab5.ViewModels {
-
+namespace INT422TestOne.ViewModels {
   public class RepoGenre : RepositoryBase {
-
-
-
-    public IEnumerable<GenresForList> getForList() {
-      var ls = dc.Genres.OrderBy(n => n.Id);
-      //var ls = this.Directors.OrderBy(n => n.Id);
-
-
-      List<GenresForList> rls = new List<GenresForList>();
-
-      foreach (var item in ls) {
-        GenresForList gfl = new GenresForList();
-        gfl.Id = item.Id;
-        gfl.Name = item.Name;
-        rls.Add(gfl);
+    public List<GenreBase> toListOfGenreBase(List<Models.Genre> genres) {
+      List<GenreBase> gls = new List<GenreBase>();
+      foreach (var item in genres) {
+        GenreBase gf = new GenreBase();
+        gf.GenreId = item.Id;
+        gf.Name = item.Name;
+        gls.Add(gf);
       }
-
-      return rls;
+      return gls;
     }
 
+    public IEnumerable<GenreBase> getListOfGenreBase() {
 
-    public GenreFull getGenreFull(int? id) {
-      var g = dc.Genres.FirstOrDefault(n => n.Id == id);
-      //var dir = Directors.FirstOrDefault(n => n.Id == id);
+      var genres = dc.Genres.OrderBy(g => g.Name);
+      if (genres == null) return null;
 
-      GenreFull gf = new GenreFull();
-      gf.Id = g.Id;
-      gf.Name = g.Name;
-      gf.Movies = RepoMovie.getMoviesForList(g.Movies);
-
-      return gf;
-
-    }
-
-    public IEnumerable<GenreFull> getGenresFull() {
-
-      var gg = dc.Genres.Include("Movies").OrderBy(n => n.Name);
-      //var st = this.Students.OrderBy(n => n.LastName);
-      List<GenreFull> rls = new List<GenreFull>();
-
-      foreach (var item in gg) {
-        GenreFull row = new GenreFull();
-
-        row.Id = item.Id;
-        row.Name = item.Name;
-        row.Movies = RepoMovie.getMoviesForList(item.Movies);
-
-        rls.Add(row);  // 85
-      }
-      return rls; // 90
-    }
-
-    public static List<GenresForList> getGenresForList(List<Lab5.Models.Genre> ls) {
-      List<GenresForList> nls = new List<GenresForList>();
-
-      foreach (var item in ls) {
-        GenresForList gfl = new GenresForList();
-        gfl.Id = item.Id;
-        gfl.Name = item.Name;
-        nls.Add(gfl);
+      List<GenreBase> gfls = new List<GenreBase>();
+      foreach (var item in genres) {
+        GenreBase g = new GenreBase();
+        g.GenreId = item.Id;
+        g.Name = item.Name;
+        gfls.Add(g);
       }
 
-      return nls;
+      return gfls;
+    }
+
+    public SelectList getGenreSelectList() {
+      SelectList sl = new SelectList(getListOfGenreBase(), "GenreId", "Name");
+      return sl;
     }
   }
 }
-
-//getForList()
-//getGenresFull()
-//getGenreFull()
-//Genres (not needed if db is used)
