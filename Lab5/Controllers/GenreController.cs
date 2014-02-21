@@ -3,16 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using Lab5.ViewModels;
 
-namespace Lab5.Controllers {
+namespace INT422TestOne.Controllers {
   public class GenreController : Controller {
-
-    private RepoGenre repo = new RepoGenre();
+    private INT422TestOne.ViewModels.RepoGenre repo = new ViewModels.RepoGenre();
     //
     // GET: /Genre/
     public ActionResult Index() {
-      return View(repo.getGenresFull());
+      return View(repo.getListOfGenreBase());
     }
 
     //
