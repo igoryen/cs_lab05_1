@@ -2,68 +2,66 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using Lab5.Models;
+using System.Web.Mvc;
 
-namespace Lab5.ViewModels {
-
+namespace INT422TestOne.ViewModels {
   public class RepoDirector : RepositoryBase {
 
-    public IEnumerable<DirectorsForList> getForList() {
-      var ls = dc.Directors.OrderBy(n => n.Id);
-      //var ls = this.Directors.OrderBy(n => n.Id);
-
-
-      List<DirectorsForList> rls = new List<DirectorsForList>();
-
-      foreach (var item in ls) {
-        DirectorsForList dfl = new DirectorsForList();
-        dfl.Id = item.Id;
-        dfl.Name = item.Name;
-        rls.Add(dfl);
-      }
-
-      return rls;
-    }
-
-
     public DirectorFull getDirectorFull(int? id) {
-      var dir = dc.Directors.FirstOrDefault(n => n.Id == id);
-      //var dir = Directors.FirstOrDefault(n => n.Id == id);
+      var director = dc.Directors.FirstOrDefault(i => i.Id == id);
+      if (director == null) return null;
 
       DirectorFull df = new DirectorFull();
-      df.Id = dir.Id;
-      df.Name = dir.Name;
-      df.Movies = RepoMovie.getMoviesForList(dir.Movies );
+      df.DirectorId = director.Id;
+      df.Name = director.Name;
+      List<MovieBase> mv = new List<MovieBase>();
+      foreach (var item in director.Movies) {
+        MovieBase mb = new MovieBase();
+        mb.MovieId = item.Id;
+        mb.Title = item.Title;
+        mv.Add(mb);
+      }
+      //df.Movies = mv;
 
       return df;
-
     }
 
-    public IEnumerable<DirectorFull> getDirectorsFull() {
+    public IEnumerable<DirectorBase> getListOfDirectorBase() {
+      var directors = dc.Directors.OrderBy(d => d.Name);
+      if (directors == null) return null;
 
-      var dd = dc.Directors.Include("Movies").OrderBy(n => n.Name);   
-      //var st = this.Students.OrderBy(n => n.LastName);
-      List<DirectorFull> rls = new List<DirectorFull>();
-
-      foreach (var item in dd) {
-        DirectorFull row = new DirectorFull();
-
-        row.Id = item.Id;
-        row.Name = item.Name;
-        row.Movies = RepoMovie.getMoviesForList(item.Movies);
-
-        rls.Add(row);  // 85
+      List<DirectorBase> dls = new List<DirectorBase>();
+      foreach (var item in directors) {
+        DirectorBase db = new DirectorBase();
+        db.DirectorId = item.Id;
+        db.Name = item.Name;
+        dls.Add(db);
       }
-      return rls; // 90
+      return dls;
     }
 
+    public DirectorFull toDirectorFull(Models.Director d) {
+      if (d == null) return null;
 
-    
+      DirectorFull df = new DirectorFull();
+      df.DirectorId = d.Id;
+      df.Name = d.Name;
 
+      df.Movies = new List<MovieFull>();
+      foreach (var item in d.Movies) {
+        MovieFull m = new MovieFull();
+        m.MovieId = item.Id;
+        m.TicketPrice = item.TicketPrice;
+        m.Title = item.Title;
+        df.Movies.Add(m);
+      }
+
+      return df;
+    }
+
+    public SelectList getDirectorSelectList() {
+      SelectList sl = new SelectList(getListOfDirectorBase(), "DirectorId", "Name");
+      return sl;
+    }
   }
 }
-
-//getForList()
-//getDirectorsFull()
-//getDirectorFull()
-//Directors (not needed when using a db)
