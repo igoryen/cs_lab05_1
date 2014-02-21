@@ -4,25 +4,11 @@ using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
 
-namespace Lab5.Models {
+namespace INT422TestOne.Models {
   public class Movie {
-
-    //=======================================================
-    // Constructor with no parameters
-    //=======================================================
     public Movie() {
       this.Genres = new List<Genre>();
     }
-
-    //=======================================================
-    // Constructor with 4 parameters
-    // t=Title, tp=TicketPrice, d=Director
-    //=======================================================
-    public Movie(string t, decimal tp, Director d, int sid){
-      this.Genres = new List<Genre>();
-      Id = sid;
-    }
-
     [Key]
     public int Id { get; set; }
     [Required]
