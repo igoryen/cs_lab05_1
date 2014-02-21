@@ -6,7 +6,7 @@ using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 
-namespace Lab5
+namespace INT422TestOne
 {
     public class MvcApplication : System.Web.HttpApplication
     {
@@ -17,7 +17,7 @@ namespace Lab5
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
-            System.Data.Entity.Database.SetInitializer(new Lab5.Models.Initiallizer());
+            System.Data.Entity.Database.SetInitializer(new INT422TestOne.Models.Initiallizer());
         }
     }
 }

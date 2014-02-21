@@ -8,7 +8,7 @@ namespace INT422TestOne.ViewModels {
   public class RepoDirector : RepositoryBase {
 
     public DirectorFull getDirectorFull(int? id) {
-      var director = dc.Directors.FirstOrDefault(i => i.Id == id);
+      var director = dc.Directors.Include("Movies").FirstOrDefault(i => i.Id == id);
       if (director == null) return null;
 
       DirectorFull df = new DirectorFull();
@@ -21,7 +21,7 @@ namespace INT422TestOne.ViewModels {
         mb.Title = item.Title;
         mv.Add(mb);
       }
-      //df.Movies = mv;
+      df.Movies = mv;
 
       return df;
     }
@@ -47,11 +47,10 @@ namespace INT422TestOne.ViewModels {
       df.DirectorId = d.Id;
       df.Name = d.Name;
 
-      df.Movies = new List<MovieFull>();
+      df.Movies = new List<MovieBase>();
       foreach (var item in d.Movies) {
-        MovieFull m = new MovieFull();
+        MovieBase m = new MovieBase();
         m.MovieId = item.Id;
-        m.TicketPrice = item.TicketPrice;
         m.Title = item.Title;
         df.Movies.Add(m);
       }

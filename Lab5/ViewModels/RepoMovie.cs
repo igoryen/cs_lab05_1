@@ -15,7 +15,8 @@ namespace INT422TestOne.ViewModels {
       mf.MovieId = movie.Id;
       mf.Title = movie.Title;
       mf.TicketPrice = movie.TicketPrice;
-      mf.Director = rd.toDirectorFull(movie.Director);
+      //mf.Director = rd.toDirectorFull(movie.Director);
+      mf.Director = rd.getDirectorFull(movie.Director.Id);
       mf.Genres = rg.toListOfGenreBase(movie.Genres);
 
       return mf;

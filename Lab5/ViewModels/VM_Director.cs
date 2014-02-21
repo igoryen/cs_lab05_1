@@ -13,11 +13,11 @@ namespace INT422TestOne.ViewModels {
   }
 
   public class DirectorFull : DirectorBase {
-    public List<MovieFull> Movies { get; set; }
+    public List<MovieBase> Movies { get; set; }
 
     public DirectorFull() {
       this.Name = string.Empty;
-      this.Movies = new List<MovieFull>();
+      this.Movies = new List<MovieBase>();
     }
   }
 }
