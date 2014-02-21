@@ -1,28 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using System.ComponentModel.DataAnnotations;
 
-namespace Lab5.ViewModels {
-
-  public class DirectorsForList {
+namespace INT422TestOne.ViewModels {
+  public class DirectorBase {
     [Key]
-    public int Id { get; set; }
-
+    public int DirectorId { get; set; }
     [Required]
-    //[RegularExpression("^[0][0-9]{8}$", ErrorMessage = "0 followed by 8 digits")]
     public string Name { get; set; }
   }
 
-  public class DirectorFull : DirectorsForList {
+  public class DirectorFull : DirectorBase {
+    public List<MovieFull> Movies { get; set; }
 
     public DirectorFull() {
-      this.Movies = new List<MoviesForList>();
+      this.Name = string.Empty;
+      this.Movies = new List<MovieFull>();
     }
-
-    public List<MoviesForList> Movies { get; set; }
   }
-
-
 }
